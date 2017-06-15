@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>04函数闭包枚举.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>LearnSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>E7278BC51EF0460900BD0AC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7278C0C1EF19C9200BD0AC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -588,6 +588,7 @@
 				E7278C131EF19C9200BD0AC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
