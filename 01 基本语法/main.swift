@@ -3,7 +3,7 @@
 //  01 基本语法
 //
 //  Created by Li_JinLin on 2017/6/14.
-//  Copyright © 2017年 www.dahuatech.com. All rights reserved.
+//  Copyright © 2017年 Li_JinLin. All rights reserved.
 //
 
 import Foundation
@@ -20,7 +20,6 @@ let e:Int,f:String,g = 10
 print(a,b,c,g)
 //变量
 var x:Int =  20
-
 var y:Int
 y = 30
 //(变量类型不能省略)

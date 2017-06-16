@@ -3,7 +3,7 @@
 //  05面向对象（上）
 //
 //  Created by Li_JinLin on 2017/6/15.
-//  Copyright © 2017年 www.dahuatech.com. All rights reserved.
+//  Copyright © 2017年 Li_JinLin. All rights reserved.
 //
 
 import Foundation
@@ -112,7 +112,7 @@ var per31 = Person3()
 var per32 = Person3()
 let per33 = per31
 let per34 = per32
-if (per33 == per31){
+if (per33 === per31){
     print("引用同一个实例")
 }
 if(per33 !== per34){
@@ -267,6 +267,359 @@ perB.age = 20
 /*
     tip: 如果在didSet观察器里为属性赋值，这个值会替换观察器之前那设置的值
  */
+/*
+   tip: 1、全局变量和局部变量，计算属性和属性观察器，它们所描述的模式也是可以用于全局变量和局部变量，所谓的全局变量是在函数、方法、闭包或者任何类型之外定义的变量，局部碧娜领是在函数、方法或者闭包内部定义的变量
+        全局变量和局部变量都属于存储型类型，跟存储属性类似，它提供特定类型的存储空间，并允许读取和写入。
+        2、全局的常量或者变量都是延迟计算的，跟延迟属性类似，不同的地方在于，全局变量或者常量不需要标记lazy特征；局部范围的常量或者变量不会延迟计算
+*/
+//例 （使用时，注意变量的作用域）
+let str1 = "Swift"       //属于全局变量
+class PersonC {
+    let str2 = "OC"      //属于类局部变量
+    func printString(){
+        let str3 = "C++" //函数局部变量
+        print(str3)
+    }
+}
+
+//5.3.5 属性观察器
+//应用场景：假设有一个Student类，它有三个属性，分别是livingcost(生活费),tuition(学费)和name(姓名)。在这个类中，由于不同的人的生活费不一定相同，因此livingcost(生活费)和name(姓名)是不同的，但是所有人的tuition(学费)是相同的。tuition属性与个体无关，不需要对类进行实例化就可以使用，这种属性被称为类型属性。类型属性使用关键字static来定义的，结构体、枚举和类都是可以定义类型属性的，
+//例
+//01结构体类型属性的语法格式
+//struct 结构体名{
+//    static var 存储属性 = "XXX"
+//    static var 计算属性名 ：属性数据类型 {
+//        return 计算后属性值
+//    }
+//}
+//例子
+struct StudentM {
+    var livingCost = 0.0
+    var owner:String = ""
+    static var tuition:Double = 10000
+    static var tuitionProp:Double {
+        return tuition + 100
+    }
+    
+    var totalCost:Double{
+        return StudentM.tuition + livingCost
+    }
+}
+//访问静态属性
+print(StudentM.tuitionProp)//静态属性直接用类型名称进行访问
+var aStu = StudentM()
+//访问实例属性
+aStu.livingCost = 1_1000
+print("访问实例属性\(aStu.totalCost)")
+
+//02枚举类型属性的语法格式
+//enum 枚举名 {
+//    static var 存储属性 = "XXX"
+//    static var 计算属性名 : 属性数据类型 {
+//        return 计算后属性值
+//    }
+//}
+//例子
+enum StudentE {
+    case iOS
+    case Jave
+    case PHP
+    case JS
+    //存储属性
+    static var tuition:Double = 10000
+    //计算属性
+    static var tuitionProp:Double{
+        return tuition
+    }
+    //计算属性
+    var instanceProp:Double{
+        switch (self) {
+        case .iOS:
+            StudentE.tuition = 10000
+        case .Jave:
+            StudentE.tuition = 10001
+        case .PHP:
+            StudentE.tuition = 10002
+        case .JS:
+            StudentE.tuition = 10003
+        }
+        return StudentE.tuition + 1_000
+    }
+}
+//访问静态属性
+print("枚举类型属性访问静态属性：\(StudentE.tuition)")
+//访问实例属性
+var aStudent = StudentE.iOS
+print("枚举类型属性访问实例属性：\(aStudent.instanceProp)")
+
+//03类类型属性的语法格式
+//class 类名{
+//    static var 存储属性 = "XXX"
+//    static var 计算属性名 : 属性数据类型 {
+//        return 计算后属性值
+//    }
+//    class var 子类对父类实现支持重写：属性数据类型 {
+//        return 重写后属性值
+//    }
+//}
+/*  
+    tip : 在为类定义类型属性时，可以使用关键字class来替换static关键字
+ */
+//例
+class StudentF {
+
+    var livingcost:Double = 0.0
+    var name:String = ""
+    static var tuition:Double = 10000
+    static var tuitionProp:Double{
+        return tuition
+    }
+    var totalCost:Double{
+        return StudentF.tuition + livingcost
+    }
+}
+//访问静态属性
+print(StudentF.tuition)
+//访问实例属性
+var stuF = StudentF()
+stuF.livingcost = 1_000
+print("类型属性属性访问静态属性：\(stuF.totalCost)")
+
+//5.4 方法 （swift中，方法可以在类、结构体、枚举中定义，分为实例方法和类方式）
+//5.4.1 实例方法（由类的特定实例调用，实例方法和函数一样分为有参和无参方法）
+//例
+class Weather {
+    func printWeather(){
+        print("现在是夏天")
+    }
+    class func summer(){
+        print("天气很热")
+    }
+}
+let weather = Weather()
+//实例方法
+weather.printWeather()
+//类型方法
+Weather.summer()
+
+//5.4.2类型方法：类型（类、结构体、枚举）自身调用的方法，如果在类、结构体、枚举中定义类型方法时，需要在func关键字前面加上static关键字声明，而在类中的类型方法，可以使用class关键字替换static
+//结构体和枚举类型方法
+struct PerE {
+    //定义结构体类型方法
+    static func personName(name:String){
+        print("结构体类型方法\(name)")
+    }
+}
+PerE.personName(name:"Jack")
+
+enum Animal {
+    case dog
+    case cat
+    case mouse
+    //定义枚举类型方法
+    static func printAnimals(){
+        print("枚举类型方法")
+    }
+}
+var dog = Animal.dog
+print(dog)
+Animal.printAnimals()
+
+//5.5 构造函数
+//构造函数是一种特殊的函数，主要是用来创建对象时，初始化对象，为对象的属性设置初始值。在swift中所有的构造函数都是init方法，并且支持构造函数重载。
+
+//5.5.1构造函数基础
+//swift在实例化之后，所有的存储型属性必须有值，可使用1、在定义属性时赋初始值2、将属性设置为Optional
+class Per1{
+    var name = "KK"
+    var age = 10
+}
+class Per {
+    var name:String?
+    var age : Int?
+}
+var p = Per()
+p.name = "Tom"
+p.age = 20
+print("姓名：\(p.name!) 年龄\(p.age!)")
+//如果不强制解包，打印的结果会带有Optional。如果不想强制解包，且属性有默认值，可以使用系统默认提供的init构造函数，在类的实例化过程中，给存储型属性设置指定的值。实例化后直接拿来使用，或者在类实例化时指定存储属性的值。
+//例 使用init初始化函数
+class Employee1:NSObject {
+    var name:String
+    var age :Int
+    //重写morning的构造函数
+    //父类提供了只跟函数，而子类需要对父类的函数进行扩展，叫做重写
+    //特点：可以super.XXX调用父类本身的方法
+    override init() {
+        name = "Pual"
+        age  = 24
+        super.init()
+    }
+}
+let employee = Employee1()
+print("使用init初始化函数,姓名:\(employee.name) 年龄:\(employee.age)")
+
+//5.5.2重载构造函数
+//在一个类中可以定义多个构造函数，以便提供不同的初始化方法，这些构造函数具有相同的名字，而参数的个数、名称、类型不相同，这称为构造函数的重载
+class HHHH{
+
+    var name:String
+    var age:Int
+    init(name:String,age:Int) {
+        self.name = name
+        self.age = age
+    }
+    func printInfo() {
+        print("重载构造函数\(self.name),\(self.age)")
+    }
+}
+
+var hh = HHHH(name:"tom",age:18)
+hh.printInfo()
+
+//5.5.3指定构造函数与便利构造函数
+//在构造函数中可以使用构造函数代理帮助完成部分构造工作。类构造函数代理分为横向代理和向上代理，向上代理发生在继承的情况下，在子类构造过程中，要先调用父类构造函数初适化的父类的存储属性，这种构造函数称为指定构造函数。横向代理只能发生在同一类内部，这种构造函数称为便利构造函数。
+//01指定构造函数
+//指定构造函数是类中最主要的构造函数。一个指定构造函数将初始化类中提供的所有属性，并根据继承链往上调用父类的构造函数来实现父类的初始化
+//格式
+//init(参数){
+//    //声明
+//}
+//指定构造函数将在继承中阐述
+//02便利构造函数，该函数是类中比较次要的、辅助型的构造函数。可以定义便利构造函数来调用同一个类中的指定构造函数，并为其参数提供默认值。也可以定义便利构造器来创建一个特殊用途或特定输入值的实例
+//convenience init(参数){
+//    声明
+//}
+//便利构造函数的特点
+/*
+    1、只有便利构造函数中可以调用self.init()
+    2、便利构造函数不能被重写或者使用super调用父类的构造函数
+    3、不能被继承
+ */
+//例
+class PersonM {
+    var name:String
+    init(name:String) {
+        self.name = name
+    }
+    convenience init() {
+        self.init(name: "UnName")
+    }
+}
+let m1 = PersonM(name:"alis")
+let m2 = PersonM()
+print(m1.name)
+print(m2.name)
+
+//5.6 析构函数
+//析构函数与构造函数相反，在一个类的实例被释放之前，析构函数会被调用。析构函数用关键字deinit来定义，析构函数没有返回值，也没有参数，不需要参数的小括号，所以不能重载，每个类最多只能有一个析构函数
+//deinit{
+////    执行析构过程
+//}
+//例
+class Circle{
+    let x = 3.1415926
+    var r:Double
+    init(r:Double) {
+        self.r = r
+    }
+    deinit {
+        print("调用析构函数")
+    }
+}
+var circle = Circle(r:3)
+print("圆的面积是\(circle.x * circle.r * circle.r)")
+//circle = nil  //circle释放内存
+var circle1 = Circle(r:10)
+print("圆的面积是\(circle1.x * circle1.r * circle1.r)")
+/*
+    tip: 在swift中，析构函数只适用于类，不能适用于枚举和结构体。由于swift采用自动引用计数机制（ARC）管理内存，因此通常当实例被释放的时候，不需要手动去清理
+*/
+
+//5.7 下标脚本
+//下标脚本是访问对象、集合或者序列的快速方式。开发者不需要调用实例特定的赋值和访问语法，就可以直接访问所需要的数值，例如数组perArray[index]、字典perDictionary[key]都使用了下标脚本
+//5.7.1 下标脚本语法(类似于实例方法和计算型属性的混合，与定义实例方法类似，下标脚本使用subscript关键字定义)
+//形式
+//subscript(参数名称1：数据类型1,参数类型2：数据类型2,...)->返回值的参数类型{
+//    get {
+//        //返回与参数类型匹配的类型的值
+//    }
+//    set(参数名称) {
+//        //执行赋值操作
+//    }
+//}
+//在上述的格式中，get为读取方法，set为设置方法。在定义set时，传入的参数类型必须。与计算属性中的set方法相同，set后面如果没有声明参数，那么就是用默认的newValue
+//例
+class NumberOfPeople{
+    var principalNumber:Int = 0
+    var teacherNumber:Int = 0
+    var studentNumber:Int = 0
+    subscript(index:Int)->Int{
+        //设置get方法
+        get{
+            switch index{
+            case 0:
+                return principalNumber
+            case 1:
+                return teacherNumber
+            case 2:
+                return studentNumber
+            default:
+                return 0
+            }
+        }
+        set{
+            switch index{
+            case 0:
+                return principalNumber = newValue
+            case 1:
+                return teacherNumber = newValue
+            case 2:
+                return studentNumber = newValue
+            default:
+                return
+            }
+        }
+    }
+}
+var peopleCount = NumberOfPeople()
+peopleCount[0] = 1
+peopleCount[1] = 50
+peopleCount[2] = 200
+var sum:Int = 0
+for num in 0...2{
+    sum += peopleCount[num]
+}
+print("总人数:\(sum)")
+//使用只读的形式实现使用下标访问属性值的功能
+class NumberOfPeopleM{
+    var principalNumber:Int = 1
+    var teacherNumber:Int = 40
+    var studentNumber:Int = 200
+    subscript(index:Int)->Int{
+        //设置get方法
+        get{
+            switch index{
+            case 0:
+                return principalNumber
+            case 1:
+                return teacherNumber
+            case 2:
+                return studentNumber
+            default:
+                return 0
+            }
+        }
+    }
+}
+var peopleNum = NumberOfPeopleM()
+//遍历输出属性
+for i in 0...2{
+    print(peopleNum[i])
+}
+
+
+
 
 
 

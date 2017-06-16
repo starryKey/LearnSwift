@@ -3,7 +3,7 @@
 //  04函数闭包枚举
 //
 //  Created by Li_JinLin on 2017/6/15.
-//  Copyright © 2017年 www.dahuatech.com. All rights reserved.
+//  Copyright © 2017年 Li_JinLin. All rights reserved.
 //
 
 import Foundation
@@ -138,7 +138,7 @@ print("\(temp1),\(temp2)")
 //04 嵌套函数
 //前面定义的函数全是在全局作用域中，全局函数是把函数定义在其他的函数体中。默认情况下，嵌套函数是对外界不可见的，但是可以被其外围函数所调用
 //例
-func calculate(opr:String)->(Int,Int)->Int{
+func calculate(opr:String)->(Int,Int)->Int{ //(Int,Int)->Int是一个整体，是一个函数，(Int,Int)两个参数，->Int
     //定义加法
     func add(a:Int,b:Int)->Int{
         return a + b
@@ -148,7 +148,7 @@ func calculate(opr:String)->(Int,Int)->Int{
         return a - b
     }
     //定义一个局部变量
-    var result:(Int,Int)->Int
+    var result:(Int,Int)->Int// (Int,Int)两个参数，->Int 是result的返回值类型
     switch (opr) {
     case "+":
         result = add(a:b:)
@@ -220,7 +220,7 @@ calculates(opr: "-") { (a:Int, b:Int) -> Int in
 //swift 能够推断出参数a和b都是Int类型的，返回值也是Int类型的，可以简化为如下形式：
 //{a,b in return a + b}
 //使用这种简化的形式，具体如下
-func calculateC(opr:String)->(Int,Int)->Int{
+func calculateC(opr:String)->(Int,Int)->Int{  //(Int,Int)->Int是一个函数，此时函数作为返回值传递
     var result:(Int,Int)->Int
     switch opr {
     case "+":
