@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>06面向对象（下）.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>LearnSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -48,6 +53,11 @@
 			<true/>
 		</dict>
 		<key>1533384A1EF28281007B73B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>153338571EF3C032007B73B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
