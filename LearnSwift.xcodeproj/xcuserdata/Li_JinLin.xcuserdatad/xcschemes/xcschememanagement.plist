@@ -34,6 +34,16 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>07扩展和协议.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>08Swift内存管理.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>LearnSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -73,6 +83,16 @@
 			<true/>
 		</dict>
 		<key>E7278C0C1EF19C9200BD0AC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7278C171EF5927400BD0AC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7278C221EF6E44C00BD0AC0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
