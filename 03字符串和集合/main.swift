@@ -93,7 +93,7 @@ print("--\(testStr2)")
     5、NSString直接是痛length即可的搭配字符串的长度，但是swift真正的类似于length的方法是取出characters属性获得字符集和，然后使用 count属性计算
  */
 //3.3集合Collection
-    //swift提供了数组、Set和字典三种集合类型，用于存储集合数据，数组是按照顺序来存储相同类型的数据，Set使用来无序存储相同类型的数据，字典是用键值对的形式无序存储相同饿类型的数据
+    //swift提供了数组、Set和字典三种集合类型，用于存储集合数据，数组是按照顺序来存储相同类型的数据，Set使用来无序存储相同类型的数据，字典是用键值对的形式无序存储相同类型的数据
 //3.3.1 Array
         //01创建数组（定义数组的两种形式 var array1: Array<String>   var array2: [String]）
          //方式01 var someInts = [Int]()

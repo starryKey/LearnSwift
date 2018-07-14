@@ -87,7 +87,7 @@ func someFunction(firstParameter:Int,secondParameter:Int){
     print(secondParameter)
 }
 someFunction(firstParameter: 1, secondParameter: 2)
-//02外部参数名，是指在参数名的前面再增加一个参数名，如果为参数直飞那个了外部形参名，调用的时候就必须显式的使用
+//02外部参数名，是指在参数名的前面再增加一个参数名，如果为参数指定了外部形参名，调用的时候就必须显式的使用
 //基本格式
 //func 函数名(外部参数名1  参数1：参数类型，外部参数名2 参数2：参数类型)->Int{
 //    函数体
@@ -180,7 +180,6 @@ let add = sumFunc(10,20)
 print(add)
 //print("测试闭包\(sum(a: 16, b: 18))")
 //tip : 与调用函数不同，在调用闭包时，闭包参数并不会出现在外部参数名
-//闭包当参数使用
 
 func testFunc(add:Int,y:Int)->Int{
     
